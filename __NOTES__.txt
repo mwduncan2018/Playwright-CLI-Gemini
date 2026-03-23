@@ -1,0 +1,94 @@
+
+
+
+=================================================================================================================================================================
+Getting Started 
+
+// Initialize Project
+npm init playwright@latest 
+
+// Install Gemini AI SDK
+npm install @google/generative-ai
+
+
+
+
+
+=================================================================================================================================================================
+Playwright AI
+
+	🎭 The Planner: Navigates your app like a human QA, identifies user flows, and writes a detailed test plan in Markdown.
+	🎭 The Generator: Takes that Markdown plan and turns it into real Playwright TypeScript code, verifying selectors live as it writes.
+	🎭 The Healer: This is the "self-healing" component. If a test fails in CI (e.g., a button ID changed), the Healer replays the test, finds the new element, and auto-patches the code.
+
+	MSFT has branded the entire suite of AI-integrated features as "Playwright AI" 
+		MCP (Model Context Protocol)
+		Test Agents
+
+	Playwright AI Layers
+		Layer 1 (The Protocol): Playwright MCP Server is the bridge that lets Gemini or Claude talk to the browser
+		Layer 2 (The Tooling): Playwright CLI + Providing the accessibility tree + "Skills" designed for AI consumption
+		Layer 3 (The Agents): Planner, Generator, Healer 
+
+	"Agentic CLI" Workflow
+		Claude Code + Playwright CLI 
+	
+	"Context-Driven" Workflow
+		Gemini + Playwright CLI
+
+	Terms
+		Playwright AI = Overall ecosystem of AI-enabled browser automation 
+		Playwright Agents = Planner/Generator/Healer scripts
+		Playwright MCP = Communication standards used by Claude/Gemini
+		Co-pilot = Chatting with Claude/Gemini to help write tests 
+		Agent = npx playwright init-agents (let it fix broken tests without you)
+
+Costs
+	
+	Claude Pricing (Anthropic)
+		Gold standard for agentic coding + More expensive 
+		
+		Subscription 
+			Claude Pro: $20/month buys 40-80 hours of agentic usage per week 
+			Claude Max: $100-200/month buys 5x to 20x the capacity of Pro 
+			Team Premium: $150/user/month buys full Claude Code access
+		API Path 
+			Sonnet 4.6: $3 per 1M input, $15 per 1M output tokens 
+			Opus 4.6: $5 per 1M input, $25 per 1M output tokens 
+			Note: If the context (test file + browser state) exceed 200k tokens, prices double 
+	
+	Gemini Pricing (Google) 
+		Budget friendly
+		
+		Subscription 
+			Standard (FREE): 1,000 request daily
+			Premium: $29/month or $299/year
+		API Path
+			Gemini 3.1 PRO: $2 per 1M input, $12 per 1M tokens 
+			Gemini 3 FLASH: $.50 per 1M input, $3 per 1M tokens 
+			Free Tier: Free API tier for FLASH models that is robust enough to run daily automation for a small team 
+	
+Setup Claude
+	Use the Playwright CLI as a "skill"
+	1) Init Agents: npx playwright init-agents --loop=claude (this creates subagent definitions in your project that Claude can call)
+	2) Use Claude Code: claude
+	3) Command Claude: Give high level instructions to Claude
+
+Token Efficiency
+	Playwright CLI communicates using the Accessibility Tree (75% fewer tokens used)
+	Context Awareness (Claude can see the Page Object Model and write tests following the coding style of the project)
+	
+Gemini
+	Google has integrated Playwright into the Gemini CLI
+	1) Install Gemini CLI: npm install -g @google/gemini-cli 
+	2) Configure MCP: Edit Gemini settings (~/.gemini/settings.json)
+		{
+		  "mcpServers": {
+			"playwright": {
+			  "command": "npx",
+			  "args": ["@playwright/mcp@latest"]
+			}
+		  }
+		}
+	3) Run Tests: Use @playwright prefix in the Gemini CLI 
+		"@playwright open http://mywebsite.com, login as "admin", and tell me if the workflow described in file test_sample.spec.ts is working correctly"
