@@ -32,6 +32,10 @@ export class ProductPage extends BasePage {
         return status.trim().toLowerCase() === "true";
     }
 
+    async isProductAStandardMatch(product: ProductModel): Promise<boolean> {
+        return await this.isProductAMatch(product);
+    }
+
     async isProductAFuzzyMatch(product: ProductModel): Promise<boolean> {
         const row = this.getProductRow(product);
         const fuzzyCell = `${row} >> ${this.CHK_FUZZY_MATCH}`;

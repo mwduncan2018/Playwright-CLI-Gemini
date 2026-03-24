@@ -1,46 +1,60 @@
+# ------------------------------------------------------------------------------
 # Dependencies
+# ------------------------------------------------------------------------------
 node_modules/
 .pnp
 .pnp.js
 
-# Environment Variables (CRITICAL: Protect your Gemini API Key)
+# ------------------------------------------------------------------------------
+# Environment & Secrets (CRITICAL)
+# ------------------------------------------------------------------------------
 .env
 *.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+!.env.example
+auth.json             # Playwright storage state/session data
+storageState.json     # Common alternative name for auth state
+.playwright/.auth/    # Internal Playwright auth folder
 
-# AI Agent & Playwright CLI (NEW)
-.playwright-cli/          # Ignore temporary browser snapshots and YAML state files
-.claude/sessions/         # Ignore AI chat history and session logs
-.claude/cache/            # Ignore selector and DOM caches
-CLAUDE.local.md           # Ignore your personal local AI overrides
+# ------------------------------------------------------------------------------
+# AI Agent & Playwright CLI Context
+# ------------------------------------------------------------------------------
+.playwright-cli/      # Temporary browser snapshots
+.claude/              # Claude Code sessions, cache, and internal data
+.gemini/              # Gemini CLI specific local configurations/cache
+CLAUDE.local.md       # Local agent overrides
+GEMINI.local.md       # Personal Gemini instruction overrides
+.aiignore             # Standardized AI exclusion file
 
-# Playwright Artifacts
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+# ------------------------------------------------------------------------------
+# Playwright Execution & Reports
+# ------------------------------------------------------------------------------
+test-results/
+playwright-report/
+blob-report/
+allure-results/       # If using Allure reporting
+playwright/.cache/
+.local-browsers/      # Locally installed browser binaries
+*.trace.zip           # Individual test traces
 
-# Media (Screenshots/Videos/Traces)
+# ------------------------------------------------------------------------------
+# Media & Visuals (Refined)
+# ------------------------------------------------------------------------------
+# Ignore accidental screenshots/videos in root, but allow test snapshots
 screenshot.png
-*.png
-*.jpg
-*.jpeg
 *.webm
 *.zip
+# If you DO NOT use visual regression testing, keep these:
+# *.png
+# *.jpg
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# System & IDEs
+# ------------------------------------------------------------------------------
+# Personal & Local Scratch Files
+# ------------------------------------------------------------------------------
+__NOTES__.txt         # Your personal scratch file seen in repo
+*.log
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 *.swp
-*.swo
