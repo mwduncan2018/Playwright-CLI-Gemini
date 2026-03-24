@@ -1,6 +1,5 @@
 
 
-
 =================================================================================================================================================================
 Getting Started 
 
@@ -10,6 +9,11 @@ npm init playwright@latest
 // Install Gemini AI SDK
 npm install @google/generative-ai
 
+// Install dotenv to manage the API key 
+npm install dotenv 
+
+// Skills 
+npx playwright-cli install --skills 
 
 
 
