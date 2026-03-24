@@ -1,3 +1,3 @@
 # Playwright-CLI-Gemini
 
-#### Generate automated tests with AI using Playwright CLI and Gemini (Context-Driven Workflow)
+#### Create automated tests with Gemini CLI and Playwright CLI
